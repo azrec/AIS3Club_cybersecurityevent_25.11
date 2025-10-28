@@ -1,0 +1,98 @@
+body {
+    background-color: #000;
+    color: #00ff00; 
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 30px; 
+    overflow: hidden; 
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.4); 
+}
+
+#terminal-container {
+    width: 95%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0; 
+}
+
+.prompt {
+    margin: 0;
+    padding: 0;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#access-key {
+    background: transparent;
+    border: none;
+    color: #00ffff;
+    font-family: inherit;
+    font-size: 1em;
+    outline: none;
+    flex-grow: 1;
+    margin-left: 5px;
+    padding-right: 5px;
+
+    caret-color: transparent; 
+
+}
+
+#access-key:not(:focus) {
+    border-right-color: transparent !important;
+    animation: none;
+}
+
+#submit-key {
+    background-color: #00ff00;
+    color: #000;
+    border: 1px solid #00ff00;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#submit-key:hover {
+    background-color: #000;
+    color: #00ff00;
+    box-shadow: 0 0 5px #00ff00;
+}
+
+#log-output {
+    height: 300px; 
+    overflow-y: hidden; 
+    margin-top: 10px;
+    padding: 5px 0;
+    border-top: 1px dashed #005500;
+    border-bottom: 1px dashed #005500;
+    white-space: pre-wrap; 
+}
+
+.error-text {
+    color: #ff0000;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.6);
+}
+
+.success-text {
+    color: #ffff00;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.6);
+}
+
+.log-key-info {
+    color: #fff;
+    font-weight: bold;
+    background-color: rgba(0, 255, 0, 0.2); 
+    padding: 2px 4px;
+    display: inline-block; 
+}
+
+#log-output[style*="border: 1px solid #ff0000"] {
+    border-top: 1px solid #ff0000 !important;
+    border-bottom: 1px solid #ff0000 !important;
+}
