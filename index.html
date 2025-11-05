@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第五關：空室回響 - 終端機</title>
+    <title>第四關：凍結的迴路 - 終端機</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="terminal-container">
         <div id="login-screen">
-            <p class="prompt">[系統]：偵測到未授權連線。</p>
-            <p class="prompt">[系統]：請輸入 20 年前之「映界計畫」存取金鑰 (Access Key)：</p>
+            <p class="prompt">[系統]：偵測到核心處理序已凍結。</p>
+            <p class="prompt">[系統]：主控台已鎖定。請輸入手動覆蓋 (Manual Override) 指令：</p>
             <div class="input-line">
-                <span class="prompt">> ACCESS_KEY:</span>
-                <input type="password" id="access-key" maxlength="12" autofocus>
+                <span class="prompt">> OVERRIDE_CMD:</span>
+                <input type="password" id="override-cmd" maxlength="20" autofocus>
             </div>
-            <button id="submit-key">輸入</button>
+            <button id="submit-key">執行</button>
             <p id="error-message" class="error-text"></p>
         </div>
 
         <div id="log-screen" style="display: none;">
-            <p class="prompt">> 正在解密並載入封存日誌... (按空白鍵暫停/繼續滾動)</p>
+            <p class="prompt">> 繞過驗證... 強制載入最後的日誌快取... (按空白鍵暫停/繼續滾動)</p>
             <div id="log-output">
                 </div>
             <div id="final-clue" style="display: none; margin-top: 20px;">
-                <p class="prompt success-text">=== 數位鑑識完成！ ===</p>
-                <p class="prompt">**關鍵訊息：** 如果鏡子碎裂，就要在高台上重組它。</p>
-                <p class="prompt">**最終座標：** NTCUST-ZJ-ROOFTOP</p>
-                <p class="prompt">碎片之五已收集，請前往下一個地點。</p>
-                <p class="prompt">test</p>
+                <p class="prompt success-text">=== 系統快取讀取完畢 ===</p>
+                <p class="prompt">**關鍵訊息：** 流程已毀損，但資料並未遺失。</p>
+                <p class="prompt">**最終座標：** NTCUST-DEV-CONSOLE</p>
+                <p class="prompt">碎片之四已收集，請前往下一個地點。</p>
             </div>
         </div>
     </div>
