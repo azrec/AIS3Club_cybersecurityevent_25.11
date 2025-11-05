@@ -40,10 +40,7 @@ body {
     margin-left: 5px;
     padding-right: 5px;
     
-    /* 關鍵 1: 讓瀏覽器顯示光標，並設定為綠色 */
     caret-color: #00ff00; 
-    
-    /* 確保移除掉所有與動畫相關的殘留設定 */
     animation: none !important; 
 }
 
@@ -55,10 +52,7 @@ body {
 
 /* 讓真實光標閃爍的魔法 */
 #override-cmd:focus {
-    /* 不再使用邊框模擬光標，移除邊框設定 */
     border-right-color: transparent !important; 
-    
-    /* 應用自定義的閃爍動畫到光標本身 */
     animation: blink-real-caret 1s step-end infinite;
 }
 

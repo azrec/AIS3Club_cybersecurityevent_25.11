@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第四關：凍結的迴路 - 終端機</title>
+    <title>第五關：空室回響</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="terminal-container">
         <div id="login-screen">
-            <p class="prompt">[系統]：偵測到核心處理序已凍結。</p>
-            <p class="prompt">[系統]：主控台已鎖定。請輸入手動覆蓋 (Manual Override) 指令：</p>
+            <p class="prompt">[AGENT_LOG]：偵測到本地腳本層 (Client-Side Script Layer) 發生驗證鎖定。</p>
+            <p class="prompt">請輸入驗證協議強制繞行代碼 (Protocol Bypass Token)</p>
             <div class="input-line">
-                <span class="prompt">> OVERRIDE_CMD:</span>
+                <span class="prompt">> TOKEN:</span>
                 <input type="password" id="override-cmd" maxlength="20" autofocus>
             </div>
             <button id="submit-key">執行</button>
@@ -21,11 +21,11 @@
         </div>
 
         <div id="log-screen" style="display: none;">
-            <p class="prompt">> 繞過驗證... 強制載入最後的日誌快取... (按空白鍵暫停/繼續滾動)</p>
+            <p class="prompt">>> Bypass Complete. 正在動態解譯快取資料 (Dynamic Runtime Decoding)... (按空白鍵暫停/繼續滾動)</p>
             <div id="log-output">
                 </div>
             <div id="final-clue-container" style="margin-top: 20px;">
-                </div>
+            </div>
         </div>
     </div>
 

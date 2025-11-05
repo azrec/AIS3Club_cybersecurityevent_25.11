@@ -1,7 +1,5 @@
 (function() { 
-
-// 陷阱指令 (Impassable Decoy)
-const IMPOSSIBLE_CMD = 'uuid:9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d';
+const user_token = 'uuid:9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d';
 
 const LOG_CONTENT = `
 SYS: Booting from recovery partition... OK
@@ -23,22 +21,20 @@ SYS: ...
 SYS: System halt. Dumping last known data cache.
 SYS: --- BEGIN CACHE DUMP ---
 SYS:
-SYS: 流程已毀損...
+SYS: 流程審查中...
 SYS:
 SYS: --- END CACHE DUMP ---
-LOG END: Session terminated by kernel panic.
+LOG END: Audit terminated by system halt.
 `;
 
-// Part 1: 最終線索的 HTML 樣板，[COORDINATE_HERE] 將被替換
 const FINAL_CLUE_TEMPLATE = `
-    <p class="prompt success-text">=== 系統快取讀取完畢 ===</p>
-    <p class="prompt">**關鍵訊息：** 流程已毀損，但資料並未遺失。</p>
-    <p class="prompt">**最終座標：** [COORDINATE_HERE]</p>
-    <p class="prompt">碎片之四已收集，請前往下一個地點。</p>
+    <p class="prompt success-text">=== [AUDIT_COMPLETE]：資料流重組成功！ ===</p>
+    <p class="prompt">最終報告： 目標已由執行時環境 (Runtime) 從字串中提取。</p>
+    <p class="prompt">目標：[COORDINATE_HERE]</p>
 `;
 
-// Part 2: 最終座標 'NTCUST-DEV-CONSOLE' 的 Base64 編碼
-const ENCODED_COORD = 'TlRDVVNULURFVi1DT05TT0xF'; 
+const enonekot = 'NDE1M18xNV81MF';
+const owtnekot = '9tdWNoX2Z1bg==';
 
 
 const loginScreen = document.getElementById('login-screen');
@@ -47,23 +43,23 @@ const cmdInput = document.getElementById('override-cmd');
 const submitKeyButton = document.getElementById('submit-key');
 const errorMessage = document.getElementById('error-message');
 const logOutput = document.getElementById('log-output');
-const finalClueContainer = document.getElementById('final-clue-container'); // 獲取容器元素
+const finalClueContainer = document.getElementById('final-clue-container');
 
 let logIndex = 0;
 let typingInterval;
 let isPaused = false;
 
 
-// 函式：Base64 解碼 (使用瀏覽器內建的 atob 函式)
-function decodeBase64(encoded) {
-    if (typeof atob === 'function') {
-        return atob(encoded);
+function decode(a, b) {
+    const name = ('b' + 'o' + 't' + 'a').split('').reverse().join(''); 
+    const func = window[name]; 
+    
+    if (typeof func === 'function') {
+        return func(a + b);
     }
-    return 'DECODING_ERROR'; 
+    return 'DECODING_ERROR';
 }
 
-
-// 玩家必須利用 Debugger 執行此函式
 function startLogDisplay() {
     loginScreen.style.display = 'none';
     logScreen.style.display = 'block';
@@ -81,11 +77,9 @@ function startLogDisplay() {
         } else if (logIndex === cleanLog.length) {
             clearInterval(typingInterval);
             
-            // 關鍵：即時解碼並組裝線索
-            const finalCoordinate = decodeBase64(ENCODED_COORD);
+            const finalCoordinate = decode(enonekot, owtnekot);
             const finalHTML = FINAL_CLUE_TEMPLATE.replace('[COORDINATE_HERE]', finalCoordinate);
             
-            // 寫入 DOM
             finalClueContainer.innerHTML = finalHTML; 
         } else if (isPaused) {
         }
@@ -100,11 +94,18 @@ submitKeyButton.addEventListener('click', () => {
     errorMessage.textContent = '';
     const inputKey = cmdInput.value.trim();
 
-    // 驗證邏輯：永遠為 false
-    if (inputKey === IMPOSSIBLE_CMD) {
+    const MAX_ALLOWED_LENGTH = 20;
+
+    if (inputKey.length > MAX_ALLOWED_LENGTH) {
+        errorMessage.textContent = '[FATAL_AUDIT]：指令長度異常。';
+        cmdInput.value = '';
+        return;
+    }
+
+    if (inputKey === user_token) {
         startLogDisplay();
     } else {
-        errorMessage.textContent = '[ERROR]：Command Error...';
+        errorMessage.textContent = '[ERROR_403]：Token 無效。請檢查程式碼內「函式呼叫的順序與邊界」(Function Scope & Flow)。';
         cmdInput.value = '';
     }
 });
@@ -131,4 +132,4 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-})(); // 關鍵：IIFE 結束
+})();
