@@ -28,25 +28,47 @@ body {
     margin-bottom: 15px;
 }
 
-#access-key {
+/* START: 終端機輸入框樣式修正 (ID 匹配 #override-cmd) */
+#override-cmd {
     background: transparent;
     border: none;
-    color: #00ffff;
+    color: #00ffff; 
     font-family: inherit;
     font-size: 1em;
-    outline: none;
+    outline: none; /* 移除點擊時的藍色外框 */
     flex-grow: 1;
     margin-left: 5px;
     padding-right: 5px;
-
-    caret-color: transparent; 
-
+    
+    /* 關鍵 1: 讓瀏覽器顯示光標，並設定為綠色 */
+    caret-color: #00ff00; 
+    
+    /* 確保移除掉所有與動畫相關的殘留設定 */
+    animation: none !important; 
 }
 
-#access-key:not(:focus) {
+/* 確保沒有被 focus 時的樣式 */
+#override-cmd:not(:focus) {
     border-right-color: transparent !important;
     animation: none;
 }
+
+/* 讓真實光標閃爍的魔法 */
+#override-cmd:focus {
+    /* 不再使用邊框模擬光標，移除邊框設定 */
+    border-right-color: transparent !important; 
+    
+    /* 應用自定義的閃爍動畫到光標本身 */
+    animation: blink-real-caret 1s step-end infinite;
+}
+
+/* 定義讓 "真實光標" 閃爍的動畫 */
+@keyframes blink-real-caret {
+    from, to { caret-color: transparent; } /* 隱藏光標 */
+    50% { caret-color: #00ff00; }          /* 顯示綠色光標 */
+}
+/* END: 終端機輸入框樣式修正 */
+
 
 #submit-key {
     background-color: #00ff00;
