@@ -30,7 +30,7 @@ LOG END: Audit terminated by system halt.
 const FINAL_CLUE_TEMPLATE = `
     <p class="prompt success-text">=== [AUDIT_COMPLETE]：資料流重組成功！ ===</p>
     <p class="prompt">最終報告： 目標已由執行時環境 (Runtime) 從字串中提取。</p>
-    <p class="prompt">目標：[COORDINATE_HERE]</p>
+    <p class="prompt">目標文字：[COORDINATE_HERE]</p>
 `;
 
 const enonekot = 'NDE1M18xNV81MF';
