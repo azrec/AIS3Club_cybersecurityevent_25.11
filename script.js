@@ -1,30 +1,34 @@
-const CORRECT_KEY = 'sapporo2004';
+const IMPOSSIBLE_CMD = 'uuid:9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d';
 
 const LOG_CONTENT = `
-SYS: Booting system core... OK
-SYS: Initializing display driver... OK
-SYS: Verifying security protocols... L3 Active
-CHAT: [NTCUST] 測試，台中端畫面正常。
-DATA: Received packet from 164.70.19.63 (Sapporo).
-SYS: connection ping 200ms...
-CHAT: [SAPPORO] 收到。關於〈境界之鏡〉，我們有點擔心...
-DATA: ...packet 3F... received...
-SYS: System heartbeat normal.
-CHAT: [NTCUST] 擔心什麼？
-SYS: ...connection unstable... voltage drop...
-CHAT: [SAPPORO] ...以防萬一，如果鏡子碎裂... 記住，這是唯一的辦法...
-ERROR: packet 4A corrupted (checksum mismatch)
-SYS: Attempting recovery...
-CHAT: [SAPPORO] ...儀式失效...要在高台上重組它...
-WARN: Protocol mismatch detected.
-SYS: ...connection lost... Dumping last known coordinate cache...
-CACHE: NTCUST-ZJ-ROOFTOP
-LOG END: Session terminated by remote host.
+SYS: Booting from recovery partition... OK
+SYS: Initializing kernel v3.4.1... OK
+SYS: Mounting file systems... OK
+SYS: Starting core services...
+SYS: - Service 'network'....... OK
+SYS: - Service 'scheduler'..... OK
+SYS: - Service 'security_auth'... FAILED
+SYS: Security authenticator failed to load.
+SYS: System integrity compromised.
+SYS: Attempting to lock down console...
+ERROR: Control loop timer mismatch. (ERR_CODE: 7F4A)
+SYS: Process hung. Awaiting manual interrupt.
+WARN: UI layer is now detached from kernel.
+SYS: ...
+SYS: ...
+SYS: ...
+SYS: System halt. Dumping last known data cache.
+SYS: --- BEGIN CACHE DUMP ---
+SYS:
+SYS: 流程已毀損...
+SYS:
+SYS: --- END CACHE DUMP ---
+LOG END: Session terminated by kernel panic.
 `;
 
 const loginScreen = document.getElementById('login-screen');
 const logScreen = document.getElementById('log-screen');
-const accessKeyInput = document.getElementById('access-key');
+const cmdInput = document.getElementById('override-cmd'); 
 const submitKeyButton = document.getElementById('submit-key');
 const errorMessage = document.getElementById('error-message');
 const logOutput = document.getElementById('log-output');
@@ -33,7 +37,6 @@ const finalClue = document.getElementById('final-clue');
 let logIndex = 0;
 let typingInterval;
 let isPaused = false;
-
 
 function startLogDisplay() {
     loginScreen.style.display = 'none';
@@ -47,7 +50,7 @@ function startLogDisplay() {
             logOutput.scrollTop = logOutput.scrollHeight;
             logIndex++;
 
-            const delay = 900 + Math.random() * 200; 
+            const delay = 700 + Math.random() * 100;
             typingInterval = setTimeout(typeLine, delay);
         } else if (logIndex === cleanLog.length) {
             clearInterval(typingInterval);
@@ -60,25 +63,24 @@ function startLogDisplay() {
 }
 
 submitKeyButton.addEventListener('click', () => {
-    accessKeyInput.style.borderRightWidth = '0'; 
+    cmdInput.style.borderRightWidth = '0'; 
 
     errorMessage.textContent = '';
-    const inputKey = accessKeyInput.value.trim();
+    const inputKey = cmdInput.value.trim();
 
-    if (inputKey === CORRECT_KEY) {
+    if (inputKey === IMPOSSIBLE_CMD) {
         startLogDisplay();
     } else {
-        errorMessage.textContent = '[ERROR]：存取金鑰錯誤，嘗試數位鑑識失敗。';
-        accessKeyInput.value = '';
+        errorMessage.textContent = '[ERROR]：Command Error...';
+        cmdInput.value = '';
     }
 });
 
-accessKeyInput.addEventListener('keypress', (e) => {
+cmdInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         submitKeyButton.click();
     }
 });
-
 
 document.addEventListener('keydown', (e) => {
     if (logScreen.style.display === 'block' && e.code === 'Space') {
